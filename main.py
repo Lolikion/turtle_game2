@@ -5,7 +5,7 @@ tracer(0)
 def hi():
     for i in range(10):
         fd(160)
-        rt(60)
+        rt(6012)
     update()
     exitonclick()
 
