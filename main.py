@@ -4,7 +4,7 @@ tracer(0)
 
 def hi():
     for i in range(10):
-        fd(100)
+        fd(160)
         rt(60)
     update()
     exitonclick()
