@@ -1,10 +1,15 @@
+import tkinter
 from tkinter import *
 from tkinter import ttk
 
 
+def open_game():
+    global menu_window,frm,gm1
+    frm.grid_forget()
+    game_screen.grid()
+
 def open_menu_from_settings():
-    global f,frm1,frm
-    f = 0
+    global frm1,frm
     frm1.grid_forget()
     frm.grid()
 
@@ -34,28 +39,40 @@ def open_settings_from_menu():
     language_change.place(relx=0.46, rely=0.4, relwidth=0.1)
     language_change.bind('<<ComboboxSelected>>', change_language)
 
-def start_game():
-    pass
+
+
 
 # All widgets
-menu_window = Tk()
+menu_window=Tk()
 w, h = menu_window.winfo_screenwidth(), menu_window.winfo_screenheight()
+
+
 frm = ttk.Frame(menu_window,width=w,height=h)
 frm1 = ttk.Frame(menu_window, width=w, height=h)
 menu_button = Button(frm1, text='Back to menu', command=open_menu_from_settings)
-start_button=Button(frm,text='Start game')
+start_button=Button(frm,text='Start game',command=open_game)
 settings_button=Button(frm,text='Settings',command=open_settings_from_menu)
 language_change = ttk.Combobox(frm1,values=['English','Русский'])
 exit_button=Button(frm,text='Exit',command=menu_window.destroy)
+game_screen = Canvas(menu_window,width = w, height = h, bg = 'blue')
+game_bg=PhotoImage(file = "C://Users//Houjo//PycharmProjects//turtle_game//pics//bg1.png")
+
+
+
 
 
 # Use this to configure widgets
+
+
 menu_window.attributes("-fullscreen", True)
 frm.grid()
 start_button.place(relx=0.46,rely=0.4,relwidth=0.1)
 settings_button.place(relx=0.46,rely=0.5,relwidth=0.1)
 exit_button.place(relx=0.46,rely=0.6,relwidth=0.1)
 language_change.current(0)
+game_screen.create_image(0, 0, image = game_bg, anchor = NW)
+
+print(w,h)
 menu_window.mainloop()
 
 
