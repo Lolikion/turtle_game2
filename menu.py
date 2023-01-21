@@ -1,20 +1,28 @@
 #TODO
-# settings -> controls
-# Inventory -> items
+# settings - controls
+# Inventory - items
 # Pause button
 # Localisation
 # Cameras)))))
+# make all the paths relative (Norm?)
 from time import strftime
 from tkinter import *
 from tkinter import ttk
+import sys
 
+directory=None
+for x in sys.path:
+    if x[-11:]=='turtle_game':
+        directory=x
+
+print(directory)
 
 game_state=0
 pause_state=0
 inv=1 #num of standart invertory cell
 hp=19
 table_state=0
-
+oz_state=0
 
 def open_game():
     global menu_window,menu_frm,h,game_state
@@ -24,7 +32,7 @@ def open_game():
     game_screen.create_image(0, 0, image=hp_bar, anchor=NW)
     game_screen.create_image(100, h-200, image=invertory, anchor=NW)
     game_screen.create_image(w-400, h - 300, image=tablet_closed, anchor=NW)
-    tablet_time.place(x=w-370,y=h-280,width=80,height=20)
+    tablet_time.place(x=w-370,y=h-280,width=90,height=30)
     change_time()
 
 
@@ -49,7 +57,7 @@ def change_tablet():
         table_state = 1
     elif table_state==1:
         game_screen.delete(oz_obj)
-        tablet_time.place(x=w-370,y=h-280,width=80,height=20)
+        tablet_time.place(x=w-370,y=h-280,width=90,height=30)
         table_state=0
 
 
@@ -67,7 +75,7 @@ def key_press(event):
     global inv,invertory,menu_window,pause_state
     if event.keysym in '1234' and pause_state==0:
         inv=int(event.keysym)
-        invertory.configure(file = f"C://Users//Houjo//PycharmProjects//turtle_game//pics//invertory//inv{inv}.png")
+        invertory.configure(file = directory+f"//pics//invertory//inv{inv}.png")
     elif event.keysym=='space' and pause_state==0:
         change_tablet()
     elif event.keysym=='Escape':
@@ -94,7 +102,7 @@ def change_language(event):
         exit_button.configure(text='Выход')
         start_button.configure(text='Начать игру')
         settings_button.configure(text='Настройки')
-        settings_button2.configure(text='Настройки')
+        settings_button2.configure(text='Назад в настройки')
         controls_button.configure(text='Управление')
         pause_lbl.configure(text='Игра на паузе,чел)))')
         language_change.current(1)
@@ -104,7 +112,7 @@ def change_language(event):
         exit_button.configure(text='Exit')
         start_button.configure(text='Start game')
         settings_button.configure(text='Settings')
-        settings_button2.configure(text='Settings')
+        settings_button2.configure(text='Back to settings')
         pause_lbl.configure(text='Game is paused, man)))')
         controls_button.configure(text='Controls')
         language_change.current(0)
@@ -150,17 +158,17 @@ menu_button2 = Button(pause_frm, text='Back to menu', command=open_menu_from_pau
 menu_button2.place(relx=0.3,rely=0.8)
 start_button=Button(menu_frm,text='Start game',command=open_game)
 settings_button=Button(menu_frm,text='Settings',command=open_settings_from_menu)
-settings_button2=Button(controls_frm,text='Settings',command=open_settings_from_controls)
+settings_button2=Button(controls_frm,text='Back to settings',command=open_settings_from_controls)
 language_change = ttk.Combobox(settings_frm,values=['English','Русский'])
 exit_button=Button(menu_frm,text='Exit',command=menu_window.destroy)
 controls_button=Button(settings_frm,text='Controls',command=open_controls)
 
 
-game_bg=PhotoImage(file = "C://Users//Houjo//PycharmProjects//turtle_game//pics//backgrounds//bg1.png")
-hp_bar=PhotoImage(file = f"C://Users//Houjo//PycharmProjects//turtle_game//pics//hpbar//hpbar_{hp}.png")
-invertory=PhotoImage(file = f"C://Users//Houjo//PycharmProjects//turtle_game//pics//invertory//inv{inv}.png")
-tablet_closed=PhotoImage(file = f"C://Users//Houjo//PycharmProjects//turtle_game//pics//tablet//tablet_closed.png")
-oz1=PhotoImage(file = f"C://Users//Houjo//PycharmProjects//turtle_game//pics//tablet//tablet_opened1.png")
+game_bg=PhotoImage(file = directory+"//pics//backgrounds//bg1.png")
+hp_bar=PhotoImage(file = directory+f"//pics//hpbar//hpbar_{hp}.png")
+invertory=PhotoImage(file = directory+f"//pics//invertory//inv{inv}.png")
+tablet_closed=PhotoImage(file = directory+f"//pics//tablet//tablet_closed.png")
+oz1=PhotoImage(file = directory+f"//pics//tablet//tablet_opened1.png")
 
 tablet_time=ttk.Label(game_screen)
 pause_lbl=ttk.Label(pause_frm,text='Game is paused, man)))')
